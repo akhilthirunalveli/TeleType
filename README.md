@@ -1,17 +1,22 @@
 # TeleType - Retro Terminal Chat System
+![License](https://img.shields.io/badge/license-MIT-green.svg) ![Go](https://img.shields.io/badge/go-1.24-blue.svg)
 
-A high-concurrency, retro-styled terminal chat system built with Go and WebSockets.
+> A retro-style terminal chat application built using **WebSockets** that supports real-time multi-client messaging, concurrent connections, and a classic interface inspired by early BBS systems.
 
 ## Features
-- **Retro Theme**: 90s green-screen terminal UI with ANSI graphics.
-- **Real-time**: WebSocket-based communication.
-- **Concurrency**: Handles thousands of concurrent connections (goroutine-per-client).
-- **Rooms**: Join different channels/rooms.
-- **Dockerized**: Easy deployment with Docker Compose.
+- **Retro Theme**: High-fidelity CRT aesthetics, scanlines, and phosphor glow.
+- **Web Client**: Zero-install web access with immersive CSS design.
+- **Real-time**: Instant messaging powered by WebSockets.
+- **Rooms & Identity**: 
+  - Dynamic room switching (`/join <room>`).
+  - Stateful usernames (`/setname <name>`).
+- **Slash Commands**: Autocomplete menu for power users.
+- **High Concurrency**: Supports thousands of concurrent users via Go goroutines.
+- **Deployment Ready**: Includes Docker support and deployment guides.
 
 ## Prerequisites
-- Go 1.24+
-- Docker (optional)
+- Go 1.21+ (for local build)
+- Docker (optional, for containerized run)
 
 ## Building Locally
 
