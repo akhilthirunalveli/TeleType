@@ -17,6 +17,7 @@ FROM alpine:latest
 WORKDIR /root/
 
 COPY --from=builder /server .
+COPY --from=builder /app/web ./web
 
 EXPOSE 8080
 
