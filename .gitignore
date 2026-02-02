@@ -4,8 +4,8 @@
 *.dll
 *.so
 *.dylib
-server
-client
+/server
+/client
 
 # IDEs
 .vscode/
