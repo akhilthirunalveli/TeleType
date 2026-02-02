@@ -1,0 +1,220 @@
+:root {
+    --phosphor-main: #33ff33;
+    --phosphor-dim: #1a801a;
+    --bg-color: #0a0a0a;
+    --crt-curvature: inset 0 0 100px rgba(0, 0, 0, 0.9);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: var(--phosphor-main);
+    font-family: 'VT323', monospace;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container for the screen */
+.crt-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    /* Optional constraint */
+    background-color: var(--bg-color);
+    border: 1px solid #333;
+    overflow: hidden;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* The actual text content area */
+.screen-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Output Area */
+.terminal-output {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 20px;
+}
+
+.terminal-output::-webkit-scrollbar {
+    display: none;
+}
+
+/* Input Area */
+.input-line {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    border-top: 1px dashed var(--phosphor-dim);
+    padding-top: 10px;
+}
+
+.prompt {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#message-input {
+    background: transparent;
+    border: none;
+    color: var(--phosphor-main);
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
+    flex-grow: 1;
+    outline: none;
+    caret-color: var(--phosphor-main);
+}
+
+/* Custom Block Cursor - Hidden for now as we use native caret for better UX */
+.cursor {
+    display: none;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+
+/* Screen Flicker & curvature overlay */
+.screen-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 16, 16, 0.1);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 20;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.97;
+    }
+
+    5% {
+        opacity: 0.95;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    15% {
+        opacity: 0.95;
+    }
+
+    20% {
+        opacity: 0.99;
+    }
+
+    25% {
+        opacity: 0.95;
+    }
+
+    30% {
+        opacity: 0.9;
+    }
+
+    35% {
+        opacity: 0.96;
+    }
+
+    40% {
+        opacity: 0.98;
+    }
+
+    45% {
+        opacity: 0.95;
+    }
+
+    50% {
+        opacity: 0.99;
+    }
+
+    55% {
+        opacity: 0.93;
+    }
+
+    60% {
+        opacity: 0.9;
+    }
+
+    65% {
+        opacity: 0.96;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.97;
+    }
+
+    80% {
+        opacity: 0.95;
+    }
+
+    85% {
+        opacity: 0.92;
+    }
+
+    90% {
+        opacity: 0.96;
+    }
+
+    95% {
+        opacity: 0.99;
+    }
+
+    100% {
+        opacity: 0.95;
+    }
+}
+
+/* Text styles */
+.msg-line {
+    margin-bottom: 4px;
+    word-wrap: break-word;
+}
+
+.msg-timestamp {
+    opacity: 0.7;
+    margin-right: 8px;
+}
+
+.msg-sender {
+    font-weight: bold;
+    color: #ccffcc;
+}
+
+.system-msg {
+    color: #ffaa00;
+}

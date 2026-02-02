@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeleType Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="suggestions.css">
+</head>
+
+<body>
+    <div class="crt-container">
+        <div class="screen-overlay"></div>
+        <div class="screen-wrapper">
+            <div id="chat-display" class="terminal-output"></div>
+            <div id="command-suggestions" class="suggestions hidden"></div>
+            <div class="input-line">
+                <span class="prompt">&gt;</span>
+                <input type="text" id="message-input" autofocus autocomplete="off" spellcheck="false">
+                <span class="cursor">_</span>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

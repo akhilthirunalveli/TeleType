@@ -1,0 +1,28 @@
+/* Command Suggestions */
+.suggestions {
+    border: 1px dashed var(--phosphor-dim);
+    color: var(--phosphor-main);
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: 60px;
+    /* Adjust based on input height */
+    left: 2rem;
+    right: 2rem;
+    z-index: 100;
+}
+
+.suggestions.hidden {
+    display: none;
+}
+
+.suggestion-item {
+    padding: 2px 5px;
+}
+
+.suggestion-cmd {
+    font-weight: bold;
+    color: #fff;
+    margin-right: 10px;
+}
