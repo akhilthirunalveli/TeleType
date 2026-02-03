@@ -4,26 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeleType Terminal</title>
+    <title>TeleType // NOIR</title>
+    <!-- Modern Tech Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="suggestions.css">
 </head>
 
 <body>
     <div class="crt-container">
-        <div class="screen-overlay"></div>
-        <div class="screen-wrapper">
-            <div id="chat-display" class="terminal-output"></div>
-            <div id="command-suggestions" class="suggestions hidden"></div>
-            <div class="input-line">
-                <span class="prompt">&gt;</span>
-                <input type="text" id="message-input" autofocus autocomplete="off" spellcheck="false">
-                <span class="cursor">_</span>
-            </div>
+        <!-- Decoration / Status Bar -->
+        <div class="status-bar">
+            <div class="logo">TeleType</div>
         </div>
+
+        <!-- Inner Screen -->
+        <div class="screen-wrapper">
+            <div id="chat-display" class="terminal-output">
+                <!-- Messages will appear here -->
+            </div>
+
+            <div id="command-suggestions" class="suggestions hidden"></div>
+        </div>
+
+        <!-- Clean Input Area -->
+        <div class="input-line">
+            <span class="prompt">&gt;</span>
+            <input type="text" id="message-input" autofocus autocomplete="off" spellcheck="false"
+                placeholder="Enter command or message...">
+        </div>
+
+        <!-- Visual Effects Layers -->
+        <div class="scanlines"></div>
+        <div class="glow-overlay"></div>
     </div>
     <script src="app.js"></script>
 </body>

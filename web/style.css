@@ -1,93 +1,202 @@
+/* Modern Noir - Retro Recreated */
 :root {
-    --phosphor-main: #33ff33;
-    --phosphor-dim: #1a801a;
-    --bg-color: #0a0a0a;
-    --crt-curvature: inset 0 0 100px rgba(0, 0, 0, 0.9);
+    --bg-color: #050505;
+    --fg-color: #ffffff;
+    --dim-color: #888888;
+    --border-color: #ffffff;
+    --scanline-color: rgba(255, 255, 255, 0.05);
+    --glow-spread: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* Added Consolas/Monaco for offline support */
+    --font-stack: 'Share Tech Mono', 'Consolas', 'Monaco', 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
 }
 
 body {
     margin: 0;
     padding: 0;
     background-color: #000;
-    color: var(--phosphor-main);
-    font-family: 'VT323', monospace;
+    color: var(--fg-color);
+    font-family: var(--font-stack);
     height: 100vh;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-/* Container for the screen */
-.crt-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-    /* Optional constraint */
-    background-color: var(--bg-color);
-    border: 1px solid #333;
     overflow: hidden;
-    padding: 2rem;
-    box-sizing: border-box;
 }
 
-/* The actual text content area */
-.screen-wrapper {
-    width: 100%;
-    height: 100%;
+/* Main Container - The "Device" */
+.crt-container {
+    width: 95%;
+    max-width: 1400px;
+    height: 90vh;
+    border: 2px solid var(--border-color);
     position: relative;
-    z-index: 1;
+    background-color: var(--bg-color);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
-/* Chat Output Area */
+/* Header / Status Bar */
+.status-bar {
+    border-bottom: 2px solid var(--border-color);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    background: #000;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.5rem;
+    text-shadow: var(--glow-spread);
+}
+
+.status-indicators {
+    font-size: 0.9rem;
+    color: var(--dim-color);
+}
+
+/* Screen Wrapper */
+.screen-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+/* Chat Area */
 .terminal-output {
     flex-grow: 1;
     overflow-y: auto;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding-bottom: 20px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--fg-color) var(--bg-color);
 }
 
 .terminal-output::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: var(--fg-color);
+    border-radius: 0;
+}
+
+/* Messages */
+.msg-line {
+    margin-bottom: 0.8rem;
+    animation: fadeIn 0.3s ease-out;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    transition: all 0.2s;
+}
+
+.msg-line:hover {
+    border-left-color: var(--fg-color);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.msg-timestamp {
+    color: var(--dim-color);
+    font-size: 0.9em;
+    margin-right: 10px;
+}
+
+.msg-sender {
+    font-weight: bold;
+    margin-right: 5px;
+    color: var(--fg-color);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.system-msg {
+    color: var(--dim-color);
+    font-style: italic;
+    border: 1px dashed var(--dim-color);
+    padding: 5px 10px;
+    display: inline-block;
 }
 
 /* Input Area */
 .input-line {
+    border-top: 2px solid var(--border-color);
+    padding: 1.5rem;
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
-    border-top: 1px dashed var(--phosphor-dim);
-    padding-top: 10px;
+    background: #000;
+    position: relative;
+    z-index: 10;
 }
 
 .prompt {
-    margin-right: 10px;
-    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 15px;
+    animation: pulse 2s infinite;
 }
 
 #message-input {
+    flex-grow: 1;
     background: transparent;
     border: none;
-    color: var(--phosphor-main);
-    font-family: 'VT323', monospace;
-    font-size: 1.5rem;
-    flex-grow: 1;
+    color: var(--fg-color);
+    font-family: var(--font-stack);
+    font-size: 1.2rem;
     outline: none;
-    caret-color: var(--phosphor-main);
+    caret-color: var(--fg-color);
 }
 
-/* Custom Block Cursor - Hidden for now as we use native caret for better UX */
-.cursor {
-    display: none;
+/* CRT Effects Implementation */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            var(--scanline-color) 50%,
+            transparent 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.3;
 }
 
-@keyframes blink {
+.glow-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    z-index: 6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
 
     0%,
     100% {
@@ -95,126 +204,65 @@ body {
     }
 
     50% {
-        opacity: 0;
+        opacity: 0.5;
     }
 }
 
 
-/* Screen Flicker & curvature overlay */
-.screen-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(18, 16, 16, 0.1);
-    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
-    pointer-events: none;
-    z-index: 20;
-}
-
-@keyframes flicker {
-    0% {
-        opacity: 0.97;
+/* Responsive */
+@media (max-width: 768px) {
+    .crt-container {
+        width: 100%;
+        height: 100vh;
+        border: none;
+        max-width: none;
     }
 
-    5% {
-        opacity: 0.95;
+    .status-bar {
+        padding: 0.8rem;
+        font-size: 0.8rem;
     }
 
-    10% {
-        opacity: 0.9;
+    .logo {
+        font-size: 1.2rem;
     }
 
-    15% {
-        opacity: 0.95;
+    .status-indicators {
+        display: none;
+        /* Hide on very small screens to save space */
     }
 
-    20% {
-        opacity: 0.99;
+    .terminal-output {
+        font-size: 1rem;
+        padding: 0.5rem;
     }
 
-    25% {
-        opacity: 0.95;
+    .input-line {
+        padding: 1rem;
     }
 
-    30% {
-        opacity: 0.9;
+    .prompt {
+        font-size: 1.2rem;
+        margin-right: 10px;
     }
 
-    35% {
-        opacity: 0.96;
+    #message-input {
+        font-size: 1rem;
     }
 
-    40% {
-        opacity: 0.98;
-    }
-
-    45% {
-        opacity: 0.95;
-    }
-
-    50% {
-        opacity: 0.99;
-    }
-
-    55% {
-        opacity: 0.93;
-    }
-
-    60% {
-        opacity: 0.9;
-    }
-
-    65% {
-        opacity: 0.96;
-    }
-
-    70% {
-        opacity: 1;
-    }
-
-    75% {
-        opacity: 0.97;
-    }
-
-    80% {
-        opacity: 0.95;
-    }
-
-    85% {
-        opacity: 0.92;
-    }
-
-    90% {
-        opacity: 0.96;
-    }
-
-    95% {
-        opacity: 0.99;
-    }
-
-    100% {
-        opacity: 0.95;
+    .suggestions {
+        width: 90%;
+        left: 5%;
+        bottom: 70px;
     }
 }
 
-/* Text styles */
-.msg-line {
-    margin-bottom: 4px;
-    word-wrap: break-word;
-}
+@media (max-width: 480px) {
+    .status-bar {
+        justify-content: center;
+    }
 
-.msg-timestamp {
-    opacity: 0.7;
-    margin-right: 8px;
-}
-
-.msg-sender {
-    font-weight: bold;
-    color: #ccffcc;
-}
-
-.system-msg {
-    color: #ffaa00;
+    .status-indicators {
+        display: none;
+    }
 }

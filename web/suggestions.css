@@ -1,16 +1,18 @@
-/* Command Suggestions */
+/* Suggestions Box - Modern Noir */
 .suggestions {
-    border: 1px dashed var(--phosphor-dim);
-    color: var(--phosphor-main);
-    padding: 10px;
-    margin-bottom: 5px;
-    font-size: 1.2rem;
     position: absolute;
     bottom: 60px;
-    /* Adjust based on input height */
-    left: 2rem;
-    right: 2rem;
+    /* Above input line */
+    left: 20px;
+    background-color: #000;
+    border: 2px solid var(--fg-color);
+    width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
     z-index: 100;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
 }
 
 .suggestions.hidden {
@@ -18,11 +20,30 @@
 }
 
 .suggestion-item {
-    padding: 2px 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+    color: var(--dim-color);
+    transition: all 0.1s;
+    font-family: var(--font-stack);
+    font-size: 0.9rem;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: var(--fg-color);
+    color: var(--bg-color);
 }
 
 .suggestion-cmd {
     font-weight: bold;
-    color: #fff;
-    margin-right: 10px;
+    margin-right: 8px;
+    color: var(--fg-color);
+}
+
+.suggestion-item:hover .suggestion-cmd {
+    color: var(--bg-color);
 }
