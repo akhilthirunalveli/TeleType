@@ -211,58 +211,77 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    body {
+        /* Fix for mobile keyboard pushing content up */
+        height: 100dvh;
+        min-height: -webkit-fill-available;
+    }
+
     .crt-container {
         width: 100%;
-        height: 100vh;
+        height: 100dvh;
+        height: -webkit-fill-available;
         border: none;
         max-width: none;
+        /* Ensure flex column works properly on mobile */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .screen-wrapper {
+        /* Ensure this takes up remaining space properly */
+        flex: 1 1 auto;
+        min-height: 0;
+        /* Crucial for nested flex scrolling */
     }
 
     .status-bar {
-        padding: 0.8rem;
-        font-size: 0.8rem;
+
+        .status-bar {
+            padding: 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+        }
+
+        .status-indicators {
+            display: none;
+            /* Hide on very small screens to save space */
+        }
+
+        .terminal-output {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+
+        .input-line {
+            padding: 1rem;
+        }
+
+        .prompt {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        #message-input {
+            font-size: 1rem;
+        }
+
+        .suggestions {
+            width: 90%;
+            left: 5%;
+            bottom: 70px;
+        }
     }
 
-    .logo {
-        font-size: 1.2rem;
-    }
+    @media (max-width: 480px) {
+        .status-bar {
+            justify-content: center;
+        }
 
-    .status-indicators {
-        display: none;
-        /* Hide on very small screens to save space */
+        .status-indicators {
+            display: none;
+        }
     }
-
-    .terminal-output {
-        font-size: 1rem;
-        padding: 0.5rem;
-    }
-
-    .input-line {
-        padding: 1rem;
-    }
-
-    .prompt {
-        font-size: 1.2rem;
-        margin-right: 10px;
-    }
-
-    #message-input {
-        font-size: 1rem;
-    }
-
-    .suggestions {
-        width: 90%;
-        left: 5%;
-        bottom: 70px;
-    }
-}
-
-@media (max-width: 480px) {
-    .status-bar {
-        justify-content: center;
-    }
-
-    .status-indicators {
-        display: none;
-    }
-}

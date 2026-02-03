@@ -161,3 +161,22 @@ input.addEventListener('input', (e) => {
 // Start
 addMessage("SYSTEM", "Booting up TeleType Web Client...");
 connect();
+
+// Mobile Viewport Fix for Virtual Keyboard
+function adjustViewport() {
+    if (window.innerWidth <= 768) {
+        // Set a CSS variable to the actual visible height
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        
+        // Ensure input is visible when keyboard opens
+        if (document.activeElement === input) {
+            setTimeout(() => {
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+    }
+}
+
+window.addEventListener('resize', adjustViewport);
+window.addEventListener('orientationchange', adjustViewport);
+adjustViewport(); // Initial call
